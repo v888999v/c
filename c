@@ -135,9 +135,9 @@ cachename="$("$shasum" <<< "$CC")"
 for f in ${comp[@]}; do
     # first, append sha1sums of all files and options into one long string
     if [[ -f "$f" ]]; then
-        cachename+="$("$shasum" "$f" | cut -d' ' -f1)"
+        cachename+="$("$CC" -E "$f" | $shasum | cut -d' ' -f1)"
     else
-        cachename+="$("$shasum" <<< "$f" | cut -d' ' -f1)"
+        cachename+="$("$CC" -E <<< "$f" | $shasum | cut -d' ' -f1)"
     fi
 done
 
